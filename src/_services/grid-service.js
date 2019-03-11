@@ -2,10 +2,14 @@ import Cell from '../_models/cell'
 
 export default class GridService {
 
-  cells = [];
+  cells = []
+  rows = []
+  columns = []
+  grid = []
   
   constructor() {
     this.initiateCells = this.initiateCells.bind(this)
+    this.initiateLookUpContainers()
   }
 
   initiateCells() {
@@ -14,5 +18,13 @@ export default class GridService {
       this.cells = this.cells.concat(cell)
     }
     console.log(this.cells)
+  }
+
+  initiateLookUpContainers() {
+    for (let i = 0; i < 9; i++) {
+      this.rows = this.rows.concat([[]])
+      this.columns = this.columns.concat([[]])
+      this.grid = this.grid.concat([[]])
+    }
   }
 }

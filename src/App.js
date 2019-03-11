@@ -13,6 +13,7 @@ class App extends Component {
 
   render() {
     let cells = this.gridService.initiateCells()
+    console.log(this.gridService.rows, this.gridService.columns, this.gridService.grid)
 
     return (
       <div className="App">
