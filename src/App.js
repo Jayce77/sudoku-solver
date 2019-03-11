@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import GridService from './_services/grid-service'
+import { Button } from 'reactstrap';
 
 class App extends Component {
   gridService
@@ -30,6 +31,7 @@ class App extends Component {
           >
             Learn React
           </a>
+          <Button>Boot Button</Button>
         </header>
       </div>
     );
