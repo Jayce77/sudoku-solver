@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import GridService from './_services/grid-service'
 
 class App extends Component {
+  gridService
+  
+  constructor() {
+    super()
+    this.gridService = new GridService()
+  }
+
   render() {
+    let cells = this.gridService.initiateCells()
+
     return (
       <div className="App">
         <header className="App-header">
