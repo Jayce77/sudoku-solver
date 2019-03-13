@@ -13,8 +13,6 @@ class App extends Component {
   }
 
   render() {
-    let cells = this.gridService.initiateCells()
-    console.log(this.gridService.rows, this.gridService.columns, this.gridService.grid)
 
     return (
       <div className="App">
@@ -32,7 +30,7 @@ class App extends Component {
             Learn React
           </a>
         </header>
-        <Board />
+        <Board gridService={this.gridService}/>
       </div>
     );
   }
