@@ -1,10 +1,10 @@
 input {
-  max-width: 100px;
-  min-height: 100px;
+  max-width: 60px;
+  min-height: 60px;
   text-align: center;
 }
 
 input[type="text"]
 {
-    font-size:60px;
+    font-size: 45px;
 }
