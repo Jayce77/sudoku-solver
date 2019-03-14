@@ -8,6 +8,7 @@ export default class Board extends Component {
     this.state = { numbers: [] }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
+    this.renderRows = this.renderRows.bind(this)
     
   }
 
@@ -116,6 +117,31 @@ export default class Board extends Component {
     this.props.gridService.setValuesInLookUps()
   }
 
+  renderColumns(currentRow) {
+    let columns = []
+    for (let i = 0; i < 9; i++) {
+      let id = i + currentRow * 9
+      columns = columns.concat(
+        <td key={id} className={id % 3 === 2 ? "sector-right" : null}>
+          <input name={id} type="text" onChange={this.handleInputChange}/>          
+        </td>
+      )
+    }
+    return columns
+  }
+
+  renderRows() {
+    let rows = [];
+    for (let i = 0; i < 9; i++) {
+      rows = rows.concat(
+        <tr key={i} className={i % 3 === 2 ? "sector-bottom" : null}>
+          { this.renderColumns(i) }          
+        </tr>
+      )
+    }
+    return rows
+  }
+
   render() {
     console.log(this.state.numbers)
     return (
@@ -125,105 +151,7 @@ export default class Board extends Component {
           <Col xs="9">
             <Table bordered responsive="sm" size="sm">
               <tbody>
-                <tr>
-                  <td><input name="0" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="1" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="2" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="3" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="4" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="5" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="6" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="7" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="8" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                <tr>
-                  <td><input name="9" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="10" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="11" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="12" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="13" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="14" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="15" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="16" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="17" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                <tr className="sector-bottom">
-                  <td><input name="18" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="19" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="20" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="21" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="22" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="23" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="24" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="25" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="26" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                <tr>
-                  <td><input name="27" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="28" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="28" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="29" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="30" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="31" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="32" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="34" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="35" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                <tr>
-                  <td><input name="36" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="37" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="38" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="39" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="40" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="41" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="42" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="43" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="44" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                <tr className="sector-bottom">
-                  <td><input name="45" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="46" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="47" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="48" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="49" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="50" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="51" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="52" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="53" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                <tr>
-                  <td><input name="54" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="55" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="56" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="57" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="58" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="59" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="60" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="61" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="62" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                <tr>
-                  <td><input name="63" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="64" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="65" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="66" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="67" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="68" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="69" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="70" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="71" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
-                  <tr>
-                  <td><input name="72" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="73" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="74" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="75" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="76" type="text" onChange={this.handleInputChange}/></td>
-                  <td className="sector-right"><input name="77" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="78" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="79" type="text" onChange={this.handleInputChange}/></td>
-                  <td><input name="80" type="text" onChange={this.handleInputChange}/></td>
-                </tr>
+                {this.renderRows()}
               </tbody>
             </Table>
           </Col>
