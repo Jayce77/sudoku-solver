@@ -38,4 +38,19 @@ export default class GridService {
     })
     console.log(this.rows, this.columns, this.sectors)
   }
+
+  getPossibleValues(cell) {
+    let invalidValues = this.rows[cell.row].concat(this.columns[cell.column], this.sectors[cell.sector])
+    for (let i = 1; i < 10; i++) {
+      if (!invalidValues.includes(i))
+      cell.possibleValues.push(i)
+    }
+  } 
+
+  solvePuzzel() {
+    for (let i = 0; i < this.cells.length; i++) {
+      this.getPossibleValues(this.cells[i])
+      console.log(this.cells[i].possibleValues)
+    }
+  }
 }

@@ -8,6 +8,7 @@ export default class Board extends Component {
     this.state = { numbers: [] }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
+    this.handleSolveBoard = this.handleSolveBoard.bind(this)
     this.renderRows = this.renderRows.bind(this)
     
   }
@@ -28,80 +29,59 @@ export default class Board extends Component {
     this.setState({numbers: newNumbers})
   }
 
+  handleSolveBoard() {
+    this.props.gridService.solvePuzzel()
+  }
+
   handleSetBoard() {
-    const numbers =[
+    const numbers = [
+      5,
       1,
       0,
-      0,
-      0,
-      0,
-      5,
-      6,
-      0,
-      0,
-      0,
-      2,
-      0,
-      0,
-      3,
-      0,
-      0,
-      4,
-      0,
-      0,
-      0,
-      3,
-      2,
-      0,
-      0,
-      0,
-      0,
-      3,
-      0,
-      4,
-      4,
-      0,
-      0,
-      0,
-      0,
-      0,
       8,
       0,
       4,
       0,
       0,
-      7,
-      0,
-      0,
-      7,
-      0,
-      2,
-      0,
-      0,
-      0,
       0,
       6,
-      6,
       0,
-      0,
-      2,
+      9,
       0,
       0,
       0,
       0,
       7,
-      0,
-      0,
+      4,
       2,
+      8,
       0,
-      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      9,
+      2,
       0,
       0,
       8,
+      6,
+      1,
       0,
+      6,
+      4,
+      0,
+      8,
       5,
       0,
-      0,
+      7,
+      4,
+      9,
       0,
       0,
       6,
@@ -109,8 +89,33 @@ export default class Board extends Component {
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       3,
-      0
+      8,
+      8,
+      6,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      9,
+      0,
+      0,
+      0,
+      3,
+      0,
+      6,
+      0,
+      4,
+      2
     ]
     // this.props.gridService.initiateCells(this.state.numbers)
     this.props.gridService.initiateCells(numbers)
@@ -146,7 +151,7 @@ export default class Board extends Component {
     console.log(this.state.numbers)
     return (
 
-      <div>
+      <div className="mt-2">
         <Row>
           <Col xs="9">
             <Table bordered responsive="sm" size="sm">
@@ -157,6 +162,7 @@ export default class Board extends Component {
           </Col>
           <Col xs="3">
             <Button color="warning" onClick={this.handleSetBoard}>Set Board</Button>{' '}
+            <Button color="warning" onClick={this.handleSolveBoard}>Solve Puzzel</Button>{' '}
           </Col>
         </Row>
       </div>

@@ -12,6 +12,7 @@ export default class Cell {
       this.row = Math.floor(id / 9)
       this.column = Math.floor(id % 9)
       this.sector = this.getSector(this.row, this.column)
+      this.possibleValues = []
     }
 
     getSector(row, column) {
