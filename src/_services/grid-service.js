@@ -59,15 +59,13 @@ export default class GridService {
     }
   } 
 
-  solvePuzzel(iterator) {
-    console.log(iterator)
+  solvePuzzel(callBack, iterator) {
     iterator = iterator || 0
     let next = iterator + 1
     let valueWorks = true
     if (this.cellsToFill.length === iterator) { return true }
 
     this.getPossibleValues(this.cellsToFill[iterator])
-    console.log(this.cellsToFill[iterator].possibleValues.length === 0)
     if (this.cellsToFill[iterator].possibleValues.length === 0) { return false }
 
     for (let i = 0; i <= this.cellsToFill[iterator].possibleValues.length; i++) {
@@ -78,10 +76,11 @@ export default class GridService {
       }
 
       this.cellsToFill[iterator].value = this.cellsToFill[iterator].possibleValues[i]
+      callBack(this.cellsToFill[iterator].id, this.cellsToFill[iterator].value)
       this.setValuesInLookUps(this.cellsToFill[iterator])
 
       console.log("cell: ", this.cellsToFill[iterator].id, "attempting value: ", this.cellsToFill[iterator].value)
-      valueWorks = this.solvePuzzel(next)
+      valueWorks = this.solvePuzzel(callBack, next)
       if (!valueWorks) { 
         this.removeValueFromLookups(this.cellsToFill[iterator])
         console.log(iterator, " is continuing ", this.cellsToFill[iterator].possibleValues)
