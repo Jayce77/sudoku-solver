@@ -5,12 +5,13 @@ import './board.css'
 export default class Board extends Component {
   constructor(props) {
     super(props)
-    this.state = { numbers: [], isBoardSet: false }
+    this.state = { numbers: [], isBoardSet: false, backTracks: 0 }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
     this.handleSolveBoard = this.handleSolveBoard.bind(this)
     this.renderRows = this.renderRows.bind(this)
     this.updateNumbers =this.updateNumbers.bind(this)
+    this.updateBacktracks =this.updateBacktracks.bind(this)
     
   }
 
@@ -31,7 +32,7 @@ export default class Board extends Component {
   }
 
   handleSolveBoard() {
-    this.props.gridService.solvePuzzel(this.updateNumbers)
+    this.props.gridService.solvePuzzel(this.updateNumbers, this.updateBacktracks)
   }
 
   updateNumbers(i, value) {
@@ -39,6 +40,12 @@ export default class Board extends Component {
       let numbers = [...prevState.numbers ]
       numbers[i] = value
       return { numbers }
+    })
+  }
+
+  updateBacktracks() {
+    this.setState({
+      backTracks: this.state.backTracks++
     })
   }
 
@@ -138,7 +145,7 @@ export default class Board extends Component {
       let id = i + currentRow * 9
       columns = columns.concat(
         <td key={id} className={id % 3 === 2 ? "sector-right" : null}>
-          <input name={id} type="text" onChange={this.handleInputChange}/>          
+          <span><input name={id} type="text" onChange={this.handleInputChange}/></span>          
         </td>
       )
     }
@@ -192,8 +199,18 @@ export default class Board extends Component {
               </Table> }
           </Col>
           <Col xs="3">
-            { !this.state.isBoardSet && <Button color="warning" onClick={this.handleSetBoard}>Set Board</Button> }
-            { this.state.isBoardSet && <Button color="warning" onClick={this.handleSolveBoard}>Solve Puzzel</Button> }
+          { this.state.isBoardSet 
+            ?
+              <div>
+                <div className="mt-2">
+                  <Button color="warning" onClick={this.handleSolveBoard}>Solve Puzzel</Button>
+                </div>
+                <div className="mt-2">
+                  <p>Number of Backtracks: { this.state.backTracks }</p>
+                </div>
+              </div>
+            : <Button color="warning" onClick={this.handleSetBoard}>Set Board</Button>
+          }
           </Col>
         </Row>
       </div>

@@ -1,10 +1,25 @@
 input {
-  max-width: 60px;
-  min-height: 60px;
+  max-width: 100%;
+  max-height: 50%;
   text-align: center;
 }
 
 input[type="text"]
 {
     font-size: 45px;
+}
+
+span {
+  display: block;
+  overflow: hidden;
+  max-height: 50%;
+  max-width: 80%;
+  padding-left: .3em;
+}
+
+td {
+  max-width: 30px;
+  max-height: 30px;
+  text-align: center;
+  font-size: 30px;
 }

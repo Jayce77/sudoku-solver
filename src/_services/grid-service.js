@@ -59,7 +59,7 @@ export default class GridService {
     }
   } 
 
-  solvePuzzel(callBack, iterator) {
+  solvePuzzel(updateCell, countBacktrack, iterator) {
     iterator = iterator || 0
     let next = iterator + 1
     let valueWorks = true
@@ -76,13 +76,14 @@ export default class GridService {
       }
 
       this.cellsToFill[iterator].value = this.cellsToFill[iterator].possibleValues[i]
-      callBack(this.cellsToFill[iterator].id, this.cellsToFill[iterator].value)
+      updateCell(this.cellsToFill[iterator].id, this.cellsToFill[iterator].value)
       this.setValuesInLookUps(this.cellsToFill[iterator])
-
       console.log("cell: ", this.cellsToFill[iterator].id, "attempting value: ", this.cellsToFill[iterator].value)
-      valueWorks = this.solvePuzzel(callBack, next)
+
+      valueWorks = this.solvePuzzel(updateCell, countBacktrack, next)
       if (!valueWorks) { 
         this.removeValueFromLookups(this.cellsToFill[iterator])
+        countBacktrack()
         console.log(iterator, " is continuing ", this.cellsToFill[iterator].possibleValues)
         continue 
       } else {
