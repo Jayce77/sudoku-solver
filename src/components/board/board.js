@@ -5,9 +5,15 @@ import './board.css'
 export default class Board extends Component {
   constructor(props) {
     super(props)
-    this.state = { numbers: [], isBoardSet: false, backTracks: 0 }
+    this.state = {
+      numbers: [],
+      isBoardSet: false,
+      backTracks: 0,
+      easyBoard: [6, 5, 7, 0, 2, 0, 0, 0, 0, 0, 0, 1, 6, 0, 3, 0, 0, 4, 0, 3, 4, 9, 0, 0, 6, 0, 0, 0, 6, 3, 2, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 5, 2, 4, 0, 0, 0, 8, 0, 0, 4, 9, 2, 0, 4, 0, 0, 1, 0, 7, 3, 0, 0, 0, 0, 0, 0, 8, 0, 4, 6, 1]
+    }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
+    this.handleSetEasyBoard = this.handleSetEasyBoard.bind(this)
     this.handleSolveBoard = this.handleSolveBoard.bind(this)
     this.renderRows = this.renderRows.bind(this)
     this.updateNumbers =this.updateNumbers.bind(this)
@@ -48,98 +54,22 @@ export default class Board extends Component {
   }
 
   updateBacktracks() {
-    this.setState({
-      backTracks: this.state.backTracks++
+    this.setState(prevState => {
+      let backTracks = prevState.backTracks
+      return { backTracks: backTracks + 1 }
     })
   }
 
   handleSetBoard() {
-    const numbers = [
-      6,
-      5,
-      7,
-      0,
-      2,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      6,
-      0,
-      3,
-      0,
-      0,
-      4,
-      0,
-      3,
-      4,
-      9,
-      0,
-      0,
-      6,
-      0,
-      0,
-      0,
-      6,
-      3,
-      2,
-      0,
-      0,
-      0,
-      0,
-      5,
-      5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      3,
-      1,
-      0,
-      0,
-      0,
-      0,
-      5,
-      2,
-      4,
-      0,
-      0,
-      0,
-      8,
-      0,
-      0,
-      4,
-      9,
-      2,
-      0,
-      4,
-      0,
-      0,
-      1,
-      0,
-      7,
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      8,
-      0,
-      4,
-      6,
-      1
-    ]
-    // this.props.gridService.initiateCells(this.state.numbers)
-    this.setState({ numbers, isBoardSet: true })
-    this.props.gridService.initiateCells(numbers)
+    this.setState({ isBoardSet: true })
+    console.log(this.state.numbers)
+    this.props.gridService.initiateCells(this.state.numbers)
+    this.props.gridService.setInitialValuesInLookUps()
+  }
+
+  handleSetEasyBoard() {
+    this.setState({numbers: this.state.easyBoard,  isBoardSet: true })
+    this.props.gridService.initiateCells(this.state.easyBoard)
     this.props.gridService.setInitialValuesInLookUps()
   }
 
@@ -214,7 +144,10 @@ export default class Board extends Component {
                   <p>Number of Backtracks: { this.state.backTracks }</p>
                 </div>
               </div>
-            : <Button color="warning" onClick={this.handleSetBoard}>Set Board</Button>
+            : <div>
+                <Button color="warning" onClick={this.handleSetBoard}>Set Your Own Board</Button>
+                <Button className="mt-2" color="warning" onClick={this.handleSetEasyBoard}>Load Easy Board</Button>
+              </div>
           }
           </Col>
         </Row>
