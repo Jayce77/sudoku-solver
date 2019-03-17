@@ -12,7 +12,7 @@ export default class Board extends Component {
     this.renderRows = this.renderRows.bind(this)
     this.updateNumbers =this.updateNumbers.bind(this)
     this.updateBacktracks =this.updateBacktracks.bind(this)
-    
+    this.replayHistory = this.replayHistory.bind(this)
   }
 
   numbers = []
@@ -33,6 +33,10 @@ export default class Board extends Component {
 
   handleSolveBoard() {
     this.props.gridService.solvePuzzel(this.updateNumbers, this.updateBacktracks)
+  }
+
+  replayHistory() {
+    console.log(this.props.gridService.attemptHistory)
   }
 
   updateNumbers(i, value) {
@@ -204,6 +208,7 @@ export default class Board extends Component {
               <div>
                 <div className="mt-2">
                   <Button color="warning" onClick={this.handleSolveBoard}>Solve Puzzel</Button>
+                  <Button color="warning" onClick={this.replayHistory}>Watch Replay</Button>
                 </div>
                 <div className="mt-2">
                   <p>Number of Backtracks: { this.state.backTracks }</p>

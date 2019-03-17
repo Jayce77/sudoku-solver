@@ -7,6 +7,7 @@ export default class GridService {
   rows = []
   columns = []
   sectors = []
+  attemptHistory = []
   
   constructor() {
     this.initiateCells = this.initiateCells.bind(this)
@@ -78,6 +79,7 @@ export default class GridService {
       this.cellsToFill[iterator].value = this.cellsToFill[iterator].possibleValues[i]
       updateCell(this.cellsToFill[iterator].id, this.cellsToFill[iterator].value)
       this.setValuesInLookUps(this.cellsToFill[iterator])
+      this.attemptHistory = this.attemptHistory.concat({ cell: this.cellsToFill[iterator].id, value: this.cellsToFill[iterator].value })
       console.log("cell: ", this.cellsToFill[iterator].id, "attempting value: ", this.cellsToFill[iterator].value)
 
       valueWorks = this.solvePuzzel(updateCell, countBacktrack, next)
