@@ -9,7 +9,9 @@ export default class Board extends Component {
       numbers: [],
       isBoardSet: false,
       backTracks: 0,
-      easyBoard: [6, 5, 7, 0, 2, 0, 0, 0, 0, 0, 0, 1, 6, 0, 3, 0, 0, 4, 0, 3, 4, 9, 0, 0, 6, 0, 0, 0, 6, 3, 2, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 5, 2, 4, 0, 0, 0, 8, 0, 0, 4, 9, 2, 0, 4, 0, 0, 1, 0, 7, 3, 0, 0, 0, 0, 0, 0, 8, 0, 4, 6, 1]
+      easyBoard: [6, 5, 7, 0, 2, 0, 0, 0, 0, 0, 0, 1, 6, 0, 3, 0, 0, 4, 0, 3, 4, 9, 0, 0, 6, 0, 0, 0, 6, 3, 2, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 5, 2, 4, 0, 0, 0, 8, 0, 0, 4, 9, 2, 0, 4, 0, 0, 1, 0, 7, 3, 0, 0, 0, 0, 0, 0, 8, 0, 4, 6, 1],
+      easyBoard2: [5, 1, 7, 6, 0, 0, 0, 3, 4, 2, 8, 9, 0, 0, 4, 0, 0, 0, 3, 4, 6, 2, 0, 5, 0, 9, 0, 6, 0, 2, 0, 0, 0, 0, 1, 0, 0, 3, 8, 0, 0, 6, 0, 4, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 7, 8, 7, 0, 3, 4, 0, 0, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      easyBoard3: [5, 1, 7, 6, 0, 0, 0, 3, 4, 0, 8, 9, 0, 0, 4, 0, 0, 0, 3, 0, 6, 2, 0, 5, 0, 9, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0, 6, 0, 4, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 7, 8, 7, 0, 3, 4, 0, 0, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
@@ -68,8 +70,8 @@ export default class Board extends Component {
   }
 
   handleSetEasyBoard() {
-    this.setState({numbers: this.state.easyBoard,  isBoardSet: true })
-    this.props.gridService.initiateCells(this.state.easyBoard)
+    this.setState({numbers: this.state.easyBoard3,  isBoardSet: true })
+    this.props.gridService.initiateCells(this.state.easyBoard3)
     this.props.gridService.setInitialValuesInLookUps()
   }
 
