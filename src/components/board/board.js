@@ -7,6 +7,7 @@ export default class Board extends Component {
     super(props)
     this.state = {
       numbers: [],
+      startingNumbers: [],
       isBoardSet: false,
       backTracks: 0,
       selectedPuzzel: null,
@@ -45,7 +46,17 @@ export default class Board extends Component {
   }
 
   replayHistory() {
-    console.log(this.props.gridService.attemptHistory)
+    this.setState({numbers: this.state.startingNumbers})
+    let history = this.props.gridService.attemptHistory
+    history.forEach(event => {
+      setTimeout(() => {
+        this.setState(prevState => {
+          let newNumbers = prevState.numbers
+          newNumbers[event.cell] = event.value
+          return {numbers: newNumbers}
+        })
+      }, 500)
+    })
   }
 
   updateNumbers(i, value) {
@@ -64,8 +75,7 @@ export default class Board extends Component {
   }
 
   handleSetBoard() {
-    this.setState({ isBoardSet: true })
-    console.log(this.state.numbers)
+    this.setState({ isBoardSet: true, startingNumbers: this.state.numbers })
     this.props.gridService.initiateCells(this.state.numbers)
     this.props.gridService.setInitialValuesInLookUps()
   }
@@ -79,16 +89,16 @@ export default class Board extends Component {
         selectedPuzzel = this.state.easyBoard
         break
       case "1":
-        selectedPuzzel = this.state.easyBoard1
+        selectedPuzzel = this.state.easyBoard2
         break
       case "2":
-        selectedPuzzel = this.state.easyBoard2
+        selectedPuzzel = this.state.easyBoard3
         break
       default:
         selectedPuzzel = this.state.easyBoard
     }
 
-    this.setState({numbers: selectedPuzzel,  isBoardSet: true })
+    this.setState({numbers: selectedPuzzel,  isBoardSet: true, startingNumbers: selectedPuzzel })
     this.props.gridService.initiateCells(selectedPuzzel)
     this.props.gridService.setInitialValuesInLookUps()
   }
@@ -133,7 +143,6 @@ export default class Board extends Component {
   }
 
   render() {
-    console.log(this.state.numbers)
     return (
 
       <div className="mt-2">

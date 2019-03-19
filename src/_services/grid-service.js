@@ -20,7 +20,6 @@ export default class GridService {
       this.cells = this.cells.concat(cell)
     }
     this.cellsToFill = this.cells.filter(cell => cell.value === 0)
-    console.log(this.cellsToFill)
   }
 
   initiateLookUpContainers() {
@@ -80,19 +79,19 @@ export default class GridService {
       updateCell(this.cellsToFill[iterator].id, this.cellsToFill[iterator].value)
       this.setValuesInLookUps(this.cellsToFill[iterator])
       this.attemptHistory = this.attemptHistory.concat({ cell: this.cellsToFill[iterator].id, value: this.cellsToFill[iterator].value })
-      console.log("cell: ", this.cellsToFill[iterator].id, "attempting value: ", this.cellsToFill[iterator].value)
+      // console.log("cell: ", this.cellsToFill[iterator].id, "attempting value: ", this.cellsToFill[iterator].value)
 
       valueWorks = this.solvePuzzel(updateCell, countBacktrack, next)
       if (!valueWorks) { 
         this.removeValueFromLookups(this.cellsToFill[iterator])
+        this.attemptHistory = this.attemptHistory.concat({ cell: this.cellsToFill[iterator].id, value: 0 })
         countBacktrack()
-        console.log(iterator, " is continuing ", this.cellsToFill[iterator].possibleValues)
+        // console.log(iterator, " is continuing ", this.cellsToFill[iterator].possibleValues)
         continue 
       } else {
         break
       }
     }
-    console.log(this.cellsToFill)
     return valueWorks
   }
 }
