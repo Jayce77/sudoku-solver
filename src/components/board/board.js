@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Row, Col, Button } from 'reactstrap'
+import { Table, Row, Col, Button, Input, FormGroup, Label } from 'reactstrap'
 import './board.css'
 
 export default class Board extends Component {
@@ -9,13 +9,14 @@ export default class Board extends Component {
       numbers: [],
       isBoardSet: false,
       backTracks: 0,
+      selectedPuzzel: null,
       easyBoard: [6, 5, 7, 0, 2, 0, 0, 0, 0, 0, 0, 1, 6, 0, 3, 0, 0, 4, 0, 3, 4, 9, 0, 0, 6, 0, 0, 0, 6, 3, 2, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 5, 2, 4, 0, 0, 0, 8, 0, 0, 4, 9, 2, 0, 4, 0, 0, 1, 0, 7, 3, 0, 0, 0, 0, 0, 0, 8, 0, 4, 6, 1],
       easyBoard2: [5, 1, 7, 6, 0, 0, 0, 3, 4, 2, 8, 9, 0, 0, 4, 0, 0, 0, 3, 4, 6, 2, 0, 5, 0, 9, 0, 6, 0, 2, 0, 0, 0, 0, 1, 0, 0, 3, 8, 0, 0, 6, 0, 4, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 7, 8, 7, 0, 3, 4, 0, 0, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       easyBoard3: [5, 1, 7, 6, 0, 0, 0, 3, 4, 0, 8, 9, 0, 0, 4, 0, 0, 0, 3, 0, 6, 2, 0, 5, 0, 9, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0, 6, 0, 4, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 7, 8, 7, 0, 3, 4, 0, 0, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
-    this.handleSetEasyBoard = this.handleSetEasyBoard.bind(this)
+    this.handleSelectPuzzel = this.handleSelectPuzzel.bind(this)
     this.handleSolveBoard = this.handleSolveBoard.bind(this)
     this.renderRows = this.renderRows.bind(this)
     this.updateNumbers =this.updateNumbers.bind(this)
@@ -69,9 +70,26 @@ export default class Board extends Component {
     this.props.gridService.setInitialValuesInLookUps()
   }
 
-  handleSetEasyBoard() {
-    this.setState({numbers: this.state.easyBoard3,  isBoardSet: true })
-    this.props.gridService.initiateCells(this.state.easyBoard3)
+  handleSelectPuzzel(e) {
+    let selection = e.target.value
+    let selectedPuzzel
+    
+    switch(selection) {
+      case "0":
+        selectedPuzzel = this.state.easyBoard
+        break
+      case "1":
+        selectedPuzzel = this.state.easyBoard1
+        break
+      case "2":
+        selectedPuzzel = this.state.easyBoard2
+        break
+      default:
+        selectedPuzzel = this.state.easyBoard
+    }
+
+    this.setState({numbers: selectedPuzzel,  isBoardSet: true })
+    this.props.gridService.initiateCells(selectedPuzzel)
     this.props.gridService.setInitialValuesInLookUps()
   }
 
@@ -147,8 +165,20 @@ export default class Board extends Component {
                 </div>
               </div>
             : <div>
-                <Button color="warning" onClick={this.handleSetBoard}>Set Your Own Board</Button>
-                <Button className="mt-2" color="warning" onClick={this.handleSetEasyBoard}>Load Easy Board</Button>
+                <Row>
+                  <Col xs="12">
+                  <Button color="warning" onClick={this.handleSetBoard}>Set Your Own Board</Button>
+                  </Col>
+                </Row>
+                <FormGroup>
+                  <Label for="exampleSelect">Select Puzzel</Label>
+                  <Input type="select" name="select" onChange={this.handleSelectPuzzel}>
+                    <option value="">Select</option>
+                    <option value="0">Easy 1</option>
+                    <option value="1">Easy 2</option>
+                    <option value="2">Medium</option>
+                  </Input>
+                </FormGroup>
               </div>
           }
           </Col>
