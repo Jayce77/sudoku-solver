@@ -17,6 +17,7 @@ export default class Board extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
+    this.handleResetBoard = this.handleResetBoard.bind(this)
     this.handleSelectPuzzel = this.handleSelectPuzzel.bind(this)
     this.handleSolveBoard = this.handleSolveBoard.bind(this)
     this.renderRows = this.renderRows.bind(this)
@@ -55,7 +56,7 @@ export default class Board extends Component {
           newNumbers[event.cell] = event.value
           return {numbers: newNumbers}
         })
-      }, 500)
+      }, 50)
     })
   }
 
@@ -78,6 +79,16 @@ export default class Board extends Component {
     this.setState({ isBoardSet: true, startingNumbers: this.state.numbers })
     this.props.gridService.initiateCells(this.state.numbers)
     this.props.gridService.setInitialValuesInLookUps()
+  }
+
+  handleResetBoard() {
+    this.setState({
+      numbers: [],
+      isBoardSet: false,
+      backTracks: 0,
+      selectedPuzzel: null,
+      startingNumbers: [] 
+    })
   }
 
   handleSelectPuzzel(e) {
@@ -168,6 +179,7 @@ export default class Board extends Component {
                 <div className="mt-2">
                   <Button color="warning" onClick={this.handleSolveBoard}>Solve Puzzel</Button>
                   <Button color="warning" onClick={this.replayHistory}>Watch Replay</Button>
+                  <Button color="warning" onClick={this.handleResetBoard}>Reset Board</Button>
                 </div>
                 <div className="mt-2">
                   <p>Number of Backtracks: { this.state.backTracks }</p>
