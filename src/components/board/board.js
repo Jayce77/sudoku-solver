@@ -43,6 +43,7 @@ export default class Board extends Component {
   }
 
   handleSolveBoard() {
+    console.log(this.state)
     this.props.gridService.solvePuzzel(this.updateNumbers, this.updateBacktracks)
   }
 
@@ -61,18 +62,22 @@ export default class Board extends Component {
   }
 
   updateNumbers(i, value) {
-    this.setState(prevState => {
-      let numbers = [...prevState.numbers ]
-      numbers[i] = value
-      return { numbers }
-    })
+    setTimeout(() => {
+      this.setState(prevState => {
+        let numbers = [...prevState.numbers ]
+        numbers[i] = value
+        return { numbers }
+      })
+    }, 10)
   }
 
   updateBacktracks() {
-    this.setState(prevState => {
-      let backTracks = prevState.backTracks
-      return { backTracks: backTracks + 1 }
-    })
+    setTimeout(() => {
+      this.setState(prevState => {
+        let backTracks = prevState.backTracks
+        return { backTracks: backTracks + 1 }
+      })
+    }, 10)
   }
 
   handleSetBoard() {
@@ -97,21 +102,27 @@ export default class Board extends Component {
     
     switch(selection) {
       case "0":
-        selectedPuzzel = this.state.easyBoard
-        break
+      selectedPuzzel = this.state.easyBoard
+      break
       case "1":
-        selectedPuzzel = this.state.easyBoard2
-        break
+      selectedPuzzel = this.state.easyBoard2
+      break
       case "2":
-        selectedPuzzel = this.state.easyBoard3
-        break
+      selectedPuzzel = this.state.easyBoard3
+      break
       default:
-        selectedPuzzel = this.state.easyBoard
+      selectedPuzzel = this.state.easyBoard
     }
-
-    this.setState({numbers: selectedPuzzel,  isBoardSet: true, startingNumbers: selectedPuzzel })
-    this.props.gridService.initiateCells(selectedPuzzel)
-    this.props.gridService.setInitialValuesInLookUps()
+    console.log(selectedPuzzel)
+    
+    this.setState({ numbers: selectedPuzzel,  isBoardSet: true, startingNumbers: selectedPuzzel })
+    let then = () => {
+      console.log(this.state)
+      this.props.gridService.initiateCells(selectedPuzzel)
+      this.props.gridService.setInitialValuesInLookUps()
+    }
+    then()
+    console.log(this.state)
   }
 
   renderInputColumns(currentRow) {
