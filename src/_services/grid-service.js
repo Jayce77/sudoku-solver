@@ -72,7 +72,6 @@ export default class GridService {
   } 
 
   solvePuzzel(updateCell, countBacktrack, iterator) {
-    console.log((updateCell, countBacktrack, iterator))
     iterator = iterator || 0
     let next = iterator + 1
     let valueWorks = true
