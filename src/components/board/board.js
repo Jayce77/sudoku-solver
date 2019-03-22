@@ -43,7 +43,6 @@ export default class Board extends Component {
   }
 
   handleSolveBoard() {
-    console.log(this.state)
     this.props.gridService.solvePuzzel(this.updateNumbers, this.updateBacktracks)
   }
 
@@ -114,13 +113,10 @@ export default class Board extends Component {
       default:
       selectedPuzzel = this.state.easyBoard
     }
-    console.log(selectedPuzzel)
     
     this.setState({ numbers: selectedPuzzel,  isBoardSet: true, startingNumbers: selectedPuzzel })
-    console.log(this.state)
     this.props.gridService.initiateCells(selectedPuzzel)
     this.props.gridService.setInitialValuesInLookUps()
-    console.log(this.state)
   }
 
   renderInputColumns(currentRow) {
