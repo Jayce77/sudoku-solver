@@ -11,6 +11,7 @@ export default class GridService {
   
   constructor() {
     this.initiateCells = this.initiateCells.bind(this)
+    this.reset = this.reset.bind(this)
     this.initiateLookUpContainers()
   }
 
@@ -28,6 +29,17 @@ export default class GridService {
       this.columns = this.columns.concat([[]])
       this.sectors = this.sectors.concat([[]])
     }
+  }
+
+  reset() {
+    this.cells = []
+    this.cellsToFill = []
+    this.rows = []
+    this.columns = []
+    this.sectors = []
+    this.attemptHistory = []
+    this.initiateCells = this.initiateCells.bind(this)
+    this.initiateLookUpContainers()
   }
 
   setInitialValuesInLookUps() {

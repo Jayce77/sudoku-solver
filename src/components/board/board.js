@@ -17,7 +17,7 @@ export default class Board extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSetBoard = this.handleSetBoard.bind(this)
-    this.handleResetBoard = this.handleResetBoard.bind(this)
+    this.handleReset = this.handleReset.bind(this)
     this.handleSelectPuzzel = this.handleSelectPuzzel.bind(this)
     this.handleSolveBoard = this.handleSolveBoard.bind(this)
     this.renderRows = this.renderRows.bind(this)
@@ -86,7 +86,7 @@ export default class Board extends Component {
     this.props.gridService.setInitialValuesInLookUps()
   }
 
-  handleResetBoard() {
+  handleReset() {
     this.setState({
       numbers: [],
       isBoardSet: false,
@@ -94,6 +94,7 @@ export default class Board extends Component {
       selectedPuzzel: null,
       startingNumbers: [] 
     })
+    this.props.gridService.reset()
   }
 
   handleSelectPuzzel(e) {
@@ -116,12 +117,9 @@ export default class Board extends Component {
     console.log(selectedPuzzel)
     
     this.setState({ numbers: selectedPuzzel,  isBoardSet: true, startingNumbers: selectedPuzzel })
-    let then = () => {
-      console.log(this.state)
-      this.props.gridService.initiateCells(selectedPuzzel)
-      this.props.gridService.setInitialValuesInLookUps()
-    }
-    then()
+    console.log(this.state)
+    this.props.gridService.initiateCells(selectedPuzzel)
+    this.props.gridService.setInitialValuesInLookUps()
     console.log(this.state)
   }
 
@@ -190,7 +188,7 @@ export default class Board extends Component {
                 <div className="mt-2">
                   <Button color="warning" onClick={this.handleSolveBoard}>Solve Puzzel</Button>
                   <Button color="warning" onClick={this.replayHistory}>Watch Replay</Button>
-                  <Button color="warning" onClick={this.handleResetBoard}>Reset Board</Button>
+                  <Button color="warning" onClick={this.handleReset}>Reset Board</Button>
                 </div>
                 <div className="mt-2">
                   <p>Number of Backtracks: { this.state.backTracks }</p>
